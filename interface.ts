@@ -1,4 +1,4 @@
-interface Play {
+export interface Play {
   name: string;
   type: string;
 }
@@ -7,7 +7,7 @@ export interface Plays {
   [key: string]: Play; // Index signature to allow multiple plays
 }
 
-interface Performance {
+export interface Performance {
   playID: string;
   audience: number;
 }
