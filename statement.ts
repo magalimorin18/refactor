@@ -53,12 +53,15 @@ export function statement(invoice: Invoice, plays: Plays) {
 
   for (let perf of invoice.performances) {
     volumeCredits += volumeCreditFor(perf);
+  }
 
+  for (let perf of invoice.performances) {
     result += ` ${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${
       perf.audience
     } seats)\n`;
     totalAmount += amountFor(perf);
   }
+
   result += `Amount owed is ${usd(totalAmount / 100)}\n`;
   result += `You earned ${volumeCredits} credits\n`;
   console.log(result);
