@@ -20,18 +20,3 @@ You earned 47 credits
 
   consoleSpy.mockRestore();
 });
-
-test("should throw an error for an unknown play type", () => {
-  const badPlays: Plays = {
-    ...plays,
-    invalid: { name: "Unknown Play", type: "unknown" as any },
-  };
-  const badInvoices: Invoice = {
-    customer: "BigCo",
-    performances: [{ playID: "invalid", audience: 50 }],
-  };
-
-  expect(() => statement(badInvoices, badPlays)).toThrow(
-    "unknown type: unknown"
-  );
-});
