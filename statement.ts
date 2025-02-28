@@ -1,7 +1,7 @@
 import { Invoice, Plays, Performance, Play } from "./interface";
 import { invoices, plays } from "./variables";
 
-function amountFor(aPerformance: Performance, play: Play) {
+function amountFor(aPerformance: Performance) {
   let result = 0;
   switch (playFor(aPerformance).type) {
     case "tragedy":
@@ -39,7 +39,7 @@ export function statement(invoice: Invoice, plays: Plays) {
   }).format;
 
   for (let perf of invoice.performances) {
-    let thisAmount = amountFor(perf, playFor(perf));
+    let thisAmount = amountFor(perf);
     // add volume credits
     volumeCredits += Math.max(perf.audience - 30, 0);
     // add extra credit for every ten comedy attendees
