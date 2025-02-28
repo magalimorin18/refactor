@@ -10,3 +10,4 @@ Always update names to improve clarity.
 
 - Extract functions
 - Replace Temp with Query
+- Inline variable
