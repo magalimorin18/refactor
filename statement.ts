@@ -1,5 +1,5 @@
 import { Invoice, Plays, Performance, Play } from "./interface";
-import { invoices, plays } from "./variables";
+import { invoice, plays } from "./variables";
 
 function amountFor(aPerformance: Performance) {
   let result = 0;
@@ -38,6 +38,15 @@ function volumeCreditFor(aPerformance: Performance) {
   return result;
 }
 
+function totalVolumeCredits() {
+  let volumeCredits = 0;
+  for (let perf of invoice.performances) {
+    volumeCredits += volumeCreditFor(perf);
+  }
+
+  return volumeCredits;
+}
+
 function usd(aNumber: number) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -50,10 +59,7 @@ export function statement(invoice: Invoice, plays: Plays) {
   let totalAmount = 0;
   let result = `Statement for ${invoice.customer}\n`;
 
-  let volumeCredits = 0;
-  for (let perf of invoice.performances) {
-    volumeCredits += volumeCreditFor(perf);
-  }
+  let volumeCredits = totalVolumeCredits();
 
   for (let perf of invoice.performances) {
     result += ` ${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${
@@ -67,4 +73,4 @@ export function statement(invoice: Invoice, plays: Plays) {
   console.log(result);
 }
 
-statement(invoices, plays);
+statement(invoice, plays);

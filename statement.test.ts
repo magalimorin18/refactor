@@ -1,6 +1,6 @@
 import { Invoice, Plays } from "./interface";
 import { statement } from "./statement"; // Adjust the path if necessary
-import { invoices, plays } from "./variables";
+import { invoice, plays } from "./variables";
 
 test("statement generates the correct output", () => {
   const expectedOutput = `Statement for BigCo
@@ -14,7 +14,7 @@ You earned 47 credits
   // Capture console output
   const consoleSpy = jest.spyOn(console, "log").mockImplementation();
 
-  statement(invoices, plays);
+  statement(invoice, plays);
 
   expect(consoleSpy).toHaveBeenCalledWith(expectedOutput);
 

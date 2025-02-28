@@ -4,7 +4,7 @@ export const plays = {
   othello: { name: "Othello", type: "tragedy" },
 };
 
-export const invoices = {
+export const invoice = {
   customer: "BigCo",
   performances: [
     {
