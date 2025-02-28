@@ -38,6 +38,14 @@ function volumeCreditFor(aPerformance: Performance) {
   return result;
 }
 
+function usd(aNumber: number) {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  }).format(aNumber / 100);
+}
+
 function totalVolumeCredits() {
   let volumeCredits = 0;
   for (let perf of invoice.performances) {
@@ -47,26 +55,24 @@ function totalVolumeCredits() {
   return volumeCredits;
 }
 
-function usd(aNumber: number) {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
-  }).format(aNumber / 100);
-}
-
-export function statement(invoice: Invoice, plays: Plays) {
+function totalAmount() {
   let totalAmount = 0;
-  let result = `Statement for ${invoice.customer}\n`;
-
   for (let perf of invoice.performances) {
-    result += ` ${playFor(perf).name}: ${usd(amountFor(perf) / 100)} (${
-      perf.audience
-    } seats)\n`;
     totalAmount += amountFor(perf);
   }
 
-  result += `Amount owed is ${usd(totalAmount / 100)}\n`;
+  return totalAmount;
+}
+
+export function statement(invoice: Invoice, plays: Plays) {
+  let result = `Statement for ${invoice.customer}\n`;
+  for (let perf of invoice.performances) {
+    result += ` ${playFor(perf).name}: ${usd(amountFor(perf))} (${
+      perf.audience
+    } seats)\n`;
+  }
+
+  result += `Amount owed is ${usd(totalAmount())}\n`;
   result += `You earned ${totalVolumeCredits()} credits\n`;
   console.log(result);
 }
